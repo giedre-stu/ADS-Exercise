@@ -3,13 +3,17 @@ public class CountedElement<E extends Comparable<E>> implements Comparable<Count
 	private int count;
 
 	public CountedElement(E e, int count){
-		//constructor - completed
-		e = element; 	
+		//constructor 
+		this.element = e; 
+		this.count = count;
 	}
 	
 	public CountedElement(E e){ 
 		// constructor
-		e = element;
+		this.element = e;
+		this.count = 1; // <-- optional but prevents an exception
+		// if the count has not been set and a getter method 
+		// is called.
 	}
 	
 	public void setCount(int c) {
@@ -21,23 +25,27 @@ public class CountedElement<E extends Comparable<E>> implements Comparable<Count
 		// getter
 		return this.count; 
 	}
+	
+	public void setElement(E e) {
+		// setter
+		this.element = e; 
+	}
+	
+	public E getElement() {
+		// getter
+		return this.element;
+	}
 
-	//add getters and setters
-	
-	//add toString() method
-	
 	@Override
 	public String toString() {
 		
 		 return this.element + " " + this.count; 
 	}
 	
-	
 	public int compareTo(CountedElement<E> sC1) {
     
-		//to complete
+		return this.element.compareTo(sC1.element);
 		
-		return 0; // placeholder
 	}
 
 }

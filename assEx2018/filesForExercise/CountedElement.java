@@ -1,3 +1,5 @@
+package assEx2018.filesForExercise;
+
 public class CountedElement<E extends Comparable<E>> implements Comparable<CountedElement<E>> {
 	private E element;
 	private int count;
@@ -11,9 +13,7 @@ public class CountedElement<E extends Comparable<E>> implements Comparable<Count
 	public CountedElement(E e){ 
 		// constructor
 		this.element = e;
-		this.count = 1; // <-- optional but prevents an exception
-		// if the count has not been set and a getter method 
-		// is called.
+		this.count = 1;  
 	}
 	
 	public void setCount(int c) {

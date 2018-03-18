@@ -1,3 +1,5 @@
+package assEx2018.filesForExercise;
+
 import java.util.NoSuchElementException;
 
 public class LinkedStack<E> implements Stack<E> {

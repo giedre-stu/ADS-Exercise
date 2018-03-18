@@ -1,3 +1,5 @@
+package assEx2018.filesForExercise;
+
 public interface Stack<E> {
 	// Each Stack<E> object is a homogeneous stack whose elements are of type E.
 	/////////////// Accessors ///////////////

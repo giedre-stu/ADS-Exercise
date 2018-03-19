@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import assEx2018.filesForExercise.Bag;
 
@@ -39,14 +40,26 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+			
+			return (!track.empty());
 		}
 
 		@Override
 		public E next() {
-			// TODO Auto-generated method stub
-			return null;
+			
+			if (track.empty())
+		        {
+				throw new NoSuchElementException();
+		        }
+			
+		     Node<CountedElement> place = track.pop();
+		     
+		     for(Node<CountedElement> curr = place.right; curr!= null; curr = curr.left)
+		     {
+		         track.push(curr);
+		     }
+		     
+		     return (E)place.element.getElement();
 		}
 
 	}

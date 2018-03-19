@@ -1,4 +1,8 @@
-//import classes for file input - scanner etc.
+/*
+ * Giedre Stulgyte 
+ * 22856161s
+ */
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Iterator;

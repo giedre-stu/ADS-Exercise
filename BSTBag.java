@@ -1,3 +1,8 @@
+/*
+ * Giedre Stulgyte 
+ * 22856161s
+ */
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -224,36 +229,48 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 		Node<E> parent = null;
 		Node<E> curr = root; 
 
+		// if tree is empty
+		if(this.isEmpty()) 
+		{ 
+			return;
+		}
+
 		for (;;) 
 		{ 
-			// if tree is empty
-			if(this.isEmpty()) 
-			{ 
-				return;
-			}
-
 			direction = element.compareTo(curr.element); 
 
 			if (direction == 0) 
 			{
 				Node<E> del = curr.deleteTopmost(); 
-				
+
 				if (curr == root)
 				{
 					root = del; 
 				}
-				
+
 				else if(curr == parent.left)
 				{
 					parent.left = del; 
 				}
-				
+
 				else 
 				{
 					parent.right = del; 
 				}
-				
+
 				return; 
+			}
+			
+			parent = curr;
+			
+			if (direction < 0)
+			{
+				curr = parent.left; 
+			}
+			
+			else
+			{ 
+				curr = parent.right;
 			}
 		}
 	}
@@ -269,32 +286,32 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	{
 		Node<E> curr = root; 
 		int direction = 0;
-		
+
 		if (this.isEmpty())
 		{
 			return false; 
 		}
-		
+
 		while (curr!=null) 
 		{
 			direction = element.compareTo(curr.element);
-			
+
 			if (direction == 0)
 			{
 				return true; 
 			}
-			
+
 			else if (direction < 0)
 			{
 				curr = curr.left; 
 			}
-			
+
 			else 
 			{
 				curr = curr.right; 
 			}
 		}
-		
+
 		return false;
 	}
 

@@ -1,3 +1,8 @@
+/*
+ * Giedre Stulgyte 
+ * 22856161s
+ */
+
 public class CountedElement<E extends Comparable<E>> implements Comparable<CountedElement<E>> {
 	private E element;
 	private int count;

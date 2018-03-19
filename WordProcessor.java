@@ -1,6 +1,7 @@
 //import classes for file input - scanner etc.
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
@@ -9,11 +10,19 @@ public class WordProcessor
 {
 	private static <E> String displaySet(Set<E> inputSet)
 	{
-		//implement this static method to create a
-		// String representation of set - 5 comma separated elements per line
-		// assume that type E has a toString method
-
-		return ""; // placeholder
+		StringBuilder set = new StringBuilder("");	
+		Iterator<E> itr = inputSet.iterator();
+		
+		for (int i = 0; itr.hasNext(); i++) 
+		{
+			set.append(itr.next() + ", ");
+			if (i%5==0) 
+			{
+				set.append(String.format("%n"));
+			}
+		}
+		
+		return set.toString();
 	}
 
 	/**

@@ -6,21 +6,19 @@ import assEx2018.filesForExercise.Bag;
 public class  BSTBag<E extends Comparable<E>> implements Bag<E> 
 {
 	// instance variables
-	private Node<CountedElement> root;
+	private Node<E> root;
 	private int size;
 
 	// nested class
-	private static class Node<E extends CountedElement>
+	private static class Node<E extends Comparable<E>>
 	{
 		// instance variables
-		protected CountedElement element;
+		protected E element;
 		protected Node<E> left, right;
 
 		protected Node(E elem)
 		{
 			this.element = elem;
-			this.element.setCount(1);
-
 			this.left = null;
 			this.right = null; 
 		}
@@ -29,7 +27,7 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	// nested class
 	private class InOrderIterator implements Iterator<E>
 	{
-		private Stack<Node<CountedElement>> track; 
+		private Stack<Node<E>> track;
 		//contains references to nodes still to be visited
 
 		// Text below is from lecture slides
@@ -40,26 +38,26 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 
 		@Override
 		public boolean hasNext() {
-			
+
 			return (!track.empty());
 		}
 
 		@Override
 		public E next() {
-			
+
 			if (track.empty())
-		        {
+			{
 				throw new NoSuchElementException();
-		        }
-			
-		     Node<CountedElement> place = track.pop();
-		     
-		     for(Node<CountedElement> curr = place.right; curr!= null; curr = curr.left)
-		     {
-		         track.push(curr);
-		     }
-		     
-		     return (E)place.element.getElement();
+			}
+
+			Node<E> place = track.pop();
+
+			for(Node<E> curr = place.right; curr!= null; curr = curr.left)
+			{
+				track.push(curr);
+			}
+
+			return place.element; 
 		}
 
 	}
@@ -101,7 +99,15 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 			return false;
 		}
 
-		//not finished
+		Iterator<E> iterator = that.iterator();
+
+		while (iterator.hasNext())
+		{
+			if (this.contains(iterator.next()))
+			{
+				return true; 
+			}
+		}
 
 		return false;
 	}
@@ -109,20 +115,71 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	@Override
 	public void clear() 
 	{
-		// TODO Auto-generated method stub
+		root = null; 
 
 	}
 
 	@Override
 	public void add(E element) 
 	{
-		// TODO Auto-generated method stub
+		// increment the size
+		this.size++;
+		
+		Node<E> ins = new Node<E> (element);
+		if(this.isEmpty()) {
+			root = ins;
+			return;
+		}
+
+		int direction = 0;
+
+		Node<E> parent = null;
+		Node<E> curr = root; 
+		
+		for (;;) 
+		{
+			if (curr == null) 
+			{	
+				if (direction<0) 
+				{
+					 parent.left = ins; 
+				}
+				else 
+				{
+					parent.right = ins; 
+				}
+				return; 
+			}
+			
+			direction = element.compareTo(curr.element);
+			
+			if(direction == 0)
+			{
+				return;
+			}
+			
+			parent = curr; 
+			
+			if (direction<0)
+			{
+				curr = curr.left; 
+			}
+			
+			else 
+			{
+				curr = curr.right; 
+			}
+
+		}
 
 	}
 
 	@Override
 	public void remove(E element) 
 	{
+
+		this.size--; 
+
 		// TODO Auto-generated method stub
 
 	}

@@ -76,13 +76,6 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	private class InOrderIterator implements Iterator<E>
 	{
 		private Stack<Node<E>> track;
-		//contains references to nodes still to be visited
-
-		// Text below is from lecture slides
-		// An InOrderIterator object is an object will traverse
-		// in in-order, the BSTSet object representing a set
-		// iterator is represented by a stack of references to 
-		// nodes still to be visited, track
 
 		@Override
 		public boolean hasNext() {
@@ -218,15 +211,12 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 			{
 				curr = curr.right; 
 			}
-
 		}
-
 	}
 
 	@Override
 	public void remove(E element) 
 	{
-
 		this.size--; 
 
 		int direction = 0;
@@ -265,7 +255,6 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 				
 				return; 
 			}
-
 		}
 	}
 
@@ -278,7 +267,34 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	@Override
 	public boolean contains(E element) 
 	{
-		// TODO Auto-generated method stub
+		Node<E> curr = root; 
+		int direction = 0;
+		
+		if (this.isEmpty())
+		{
+			return false; 
+		}
+		
+		while (curr!=null) 
+		{
+			direction = element.compareTo(curr.element);
+			
+			if (direction == 0)
+			{
+				return true; 
+			}
+			
+			else if (direction < 0)
+			{
+				curr = curr.left; 
+			}
+			
+			else 
+			{
+				curr = curr.right; 
+			}
+		}
+		
 		return false;
 	}
 

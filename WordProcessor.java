@@ -80,6 +80,5 @@ public class WordProcessor
 		}
 
 		System.out.println(displaySet(countedWordSet));
-
 	}
 }

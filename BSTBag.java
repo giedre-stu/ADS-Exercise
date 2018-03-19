@@ -21,6 +21,54 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 			this.element = elem;
 			this.left = null;
 			this.right = null; 
+		} 
+
+		private Node<E> deleteTopmost()
+		{
+			if (this.left == null)
+			{
+				return this.right; 
+			}
+
+			else if (this.right == null)
+			{
+				return this.left;
+			}
+
+			else 
+			{
+				this.element = (E) this.right.getLeftmost();
+				this.right = this.right.deleteLeftmost();
+				return this; 
+			}
+		}
+
+		private Node<E> getLeftmost() 
+		{
+			return this.left;
+		}
+
+		private Node<E> deleteLeftmost() 
+		{
+			if (this.left == null)
+			{
+				return this.right; 
+			}
+
+			else
+			{
+				Node<E> parent = this;
+				Node<E> curr = this.left;
+
+				while(curr.left!=null)
+				{
+					parent = curr; 
+					curr = curr.left;
+				}
+
+				parent.left = curr.right; 
+				return this;
+			}
 		}
 	}
 
@@ -124,9 +172,10 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 	{
 		// increment the size
 		this.size++;
-		
+
 		Node<E> ins = new Node<E> (element);
-		if(this.isEmpty()) {
+		if(this.isEmpty()) 
+		{
 			root = ins;
 			return;
 		}
@@ -135,14 +184,14 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 
 		Node<E> parent = null;
 		Node<E> curr = root; 
-		
+
 		for (;;) 
 		{
 			if (curr == null) 
 			{	
 				if (direction<0) 
 				{
-					 parent.left = ins; 
+					parent.left = ins; 
 				}
 				else 
 				{
@@ -150,21 +199,21 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 				}
 				return; 
 			}
-			
+
 			direction = element.compareTo(curr.element);
-			
+
 			if(direction == 0)
 			{
 				return;
 			}
-			
+
 			parent = curr; 
-			
+
 			if (direction<0)
 			{
 				curr = curr.left; 
 			}
-			
+
 			else 
 			{
 				curr = curr.right; 
@@ -180,8 +229,44 @@ public class  BSTBag<E extends Comparable<E>> implements Bag<E>
 
 		this.size--; 
 
-		// TODO Auto-generated method stub
+		int direction = 0;
 
+		Node<E> parent = null;
+		Node<E> curr = root; 
+
+		for (;;) 
+		{ 
+			// if tree is empty
+			if(this.isEmpty()) 
+			{ 
+				return;
+			}
+
+			direction = element.compareTo(curr.element); 
+
+			if (direction == 0) 
+			{
+				Node<E> del = curr.deleteTopmost(); 
+				
+				if (curr == root)
+				{
+					root = del; 
+				}
+				
+				else if(curr == parent.left)
+				{
+					parent.left = del; 
+				}
+				
+				else 
+				{
+					parent.right = del; 
+				}
+				
+				return; 
+			}
+
+		}
 	}
 
 	@Override
